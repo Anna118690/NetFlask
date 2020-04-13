@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Résultat de la recherche - NetFlask 4Ever";
+
+}
+@section HeaderInfo
+{
+    @{
+        Html.RenderPartial("~/Views/Shared/_GeneralHeader.cshtml");
+    }
+}
+<div class="reviews-section">
+    <h3 class="head">Résultat de la recherche pour "@ViewBag.Word" (@Model.Count Film(s) trouvé(s))</h3>
+    <div class="col-md-9 reviews-grids">
+        @foreach (NetFlask.Models.MovieReview item in Model)
+        {
+            Html.RenderPartial("~/Views/Home/_PartialReview.cshtml", item);
+        }
+    </div>
+    <div class="clearfix"></div>
+</div>
+			</div>
+

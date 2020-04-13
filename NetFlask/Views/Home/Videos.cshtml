@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Best Movies - NetFlask 4Ever";
+
+}
+@section MoreCss
+{
+    @Styles.Render("~/Content/Pop")
+}
+@section HeaderInfo
+{
+    @{
+        Html.RenderPartial("~/Views/Shared/_GeneralHeader.cshtml");
+    }
+}
+@section scripts
+{
+    @Scripts.Render("~/Scripts/Pop")
+    <script>
+        $(document).ready(function () {
+            $('.popup-with-zoom-anim').magnificPopup({
+                type: 'inline',
+                fixedContentPos: false,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                closeBtnInside: true,
+                preloader: false,
+                midClick: true,
+                removalDelay: 300,
+                mainClass: 'my-mfp-zoom-in'
+            });
+        });
+    </script>
+    }
+
+
+<div class="right-content">
+    <div class="right-content-heading">
+        <div class="right-content-heading-left">
+            <h3 class="head">Bandes Annonces</h3>
+        </div>
+    </div>
+
+    
+    <div class="content-grids">
+        @foreach (NetFlask.Models.MovieInfo item in Model)
+        {
+            <div id="small-dialog-@item.Id" class="mfp-hide">
+                <iframe src="@item.Video" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="content-grid">
+                <a class="play-icon popup-with-zoom-anim" href="#small-dialog-@item.Id">
+                    <img src="https://image.tmdb.org/t/p/w200/@item.Picture" />
+                </a>
+                <h3>@item.Title</h3>
+                <ul class="button">
+                    <li><a href="#"><img src="/images/likes.png" title="image-name" /></a></li>
+                    <li><a href="#"><img src="/images/views.png" title="image-name" /></a></li>
+                    <li><a href="#"><img src="/images/link.png" title="image-name" /></a></li>
+                </ul>
+            </div>
+        }
+        <div class="clearfix"> </div>
+        <!---start-pagination----->
+        <div class="pagenation">
+            <div class="pagenation">
+                <ul>
+                    @{
+                        int next = ViewBag.CurrentPage + 1;
+
+
+                        if (next > 2)
+                        {
+
+                            int prev = ViewBag.CurrentPage - 1;
+                            @:<li><a href="/Home/Videos/@prev" style="margin-right:10px;">&laquo;</a></li>
+
+
+
+
+                        }
+
+
+                        for (int i = ViewBag.CurrentPage; i <= ViewBag.CurrentPage + 10 && i <= ViewBag.MaxPages; i++)
+                        {
+                            @:<li><a href="/Home/Videos/@i">@i</a></li>
+                        }
+
+                        if (next <= ViewBag.MaxPages)
+
+                        {
+                            @:<li><a href="/Home/Videos/@next">&raquo;</a></li>
+
+
+
+
+                        }
+                    }
+                </ul>
+            </div>
+        <div class="clearfix"> </div>
+        <!---End-pagination----->
+    </div>
+</div>
+<div class="clearfix"> </div>
+			</div>	
